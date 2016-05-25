@@ -31,15 +31,15 @@ WORKDIR /root
 
 # Prepare by downloading dependencies
 ADD pom.xml /root/pom.xml  
-RUN mvn dependency:resolve  
-RUN mvn verify
+#RUN mvn dependency:resolve  
+#RUN mvn verify
 
 # Adding source, compile and package into a fat jar
-ADD src /root/src  
-RUN mvn package
+#ADD src /root/src  
+#RUN mvn package
 
-EXPOSE 4567  
-CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/sparkexample-jar-with-dependencies.jar"]  
+#EXPOSE 4567  
+#CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/sparkexample-jar-with-dependencies.jar"]  
 
 # Define default command.
 CMD ["bash"]
