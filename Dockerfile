@@ -39,8 +39,6 @@ ADD pom.xml /root/pom.xml
 ADD src /root/src  
 RUN mvn package
 
-#EXPOSE 4567  
-#CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/sparkexample-jar-with-dependencies.jar"]  
 
 # Define default command.
 CMD ["bash"]
