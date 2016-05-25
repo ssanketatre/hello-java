@@ -18,15 +18,33 @@ RUN \
   apt-get install -y oracle-java8-installer && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
-
-
-# Define working directory.
-WORKDIR /data
-
+  apt-get update
+  apt-get install -y maven
+  
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Define default command.
 CMD ["bash"]
+
+# Define working directory.
+WORKDIR /root
+
+#Copy pom.xml to /root
+
+# Prepare by downloading dependencies
+ADD pom.xml /root/pom.xml  
+RUN ["mvn", "dependency:resolve"]  
+RUN ["mvn", "verify"]
+
+# Adding source, compile and package into a fat jar
+ADD src /root/src  
+RUN ["mvn", "package"]
+
+EXPOSE 4567  
+CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/sparkexample-jar-with-dependencies.jar"]  
+
+
+
 
 
