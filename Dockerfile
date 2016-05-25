@@ -18,7 +18,7 @@ RUN \
   #apt-get install -y oracle-java8-installer && \
   #rm -rf /var/lib/apt/lists/* && \
   #rm -rf /var/cache/oracle-jdk8-installer
-  apt-get update
+  apt-get update && \
   apt-get install -y maven
   
 # Define commonly used JAVA_HOME variable
