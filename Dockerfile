@@ -23,7 +23,7 @@ RUN \
   apt-get install -y maven && \
   apt-get install -y vim && \
   apt-get install -y tomcat8 && \
-  echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8 && \
+  echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8 
   
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
