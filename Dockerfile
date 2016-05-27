@@ -20,7 +20,10 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer && \
   apt-get update && \
-  apt-get install -y maven
+  apt-get install -y maven && \
+  apt-get install -y vim && \
+  apt-get install -y tomcat8 && \
+  echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8 && \
   
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
@@ -39,6 +42,11 @@ ADD pom.xml /root/pom.xml
 ADD src /root/src  
 RUN mvn package
 
+# Expose the default tomcat port
+EXPOSE 8080
+
+# Start the tomcat (and leave it hanging)
+CMD service tomcat8 start && tail -f /var/lib/tomcat8/logs/catalina.out
 
 # Define default command.
 CMD ["bash"]
