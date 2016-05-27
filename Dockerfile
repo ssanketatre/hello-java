@@ -52,7 +52,7 @@ RUN rm -r /var/lib/tomcat8/webapps/ROOT
 EXPOSE 8080
 
 # Start the tomcat (and leave it hanging)
-RUN service tomcat8 start && tail -f /var/lib/tomcat8/logs/catalina.out
+RUN service tomcat8 start 
 
 # Define default command.
 CMD ["bash"]
