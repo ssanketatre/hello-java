@@ -67,8 +67,8 @@ WORKDIR /opt/tomcat
 
 #copy build war file to tomcat webapps
 
-RUN cp -r /root/target/hello-java-1.0.war /var/lib/tomcat8/webapps/
-RUN rm -r /var/lib/tomcat8/webapps/ROOT
+RUN cp -r /root/target/hello-java-1.0.war /opt/tomcat/webapps/
+
 
 # Launch Tomcat
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
