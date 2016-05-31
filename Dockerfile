@@ -45,9 +45,9 @@ RUN mvn package
 
 # Get Tomcat
 RUN \
-  wget --quiet --no-cookies http://apache.rediris.es/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+  wget --quiet --no-cookies http://apache.rediris.es/tomcat/tomcat-8/v8.0.35/bin/apache-tomcat-8.0.35.tar.gz -O /tmp/tomcat.tgz && \
   tar xzvf /tmp/tomcat.tgz -C /opt && \
-  mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+  mv /opt/apache-tomcat-8.0.35 /opt/tomcat && \
   rm /tmp/tomcat.tgz && \
   rm -rf /opt/tomcat/webapps/examples && \
   rm -rf /opt/tomcat/webapps/docs && \
