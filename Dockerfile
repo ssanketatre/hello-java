@@ -54,7 +54,7 @@ RUN \
   rm -rf /opt/tomcat/webapps/ROOT
 
 # Add admin/admin user
-ADD tomcat-users.xml /opt/tomcat/conf/
+#ADD tomcat-users.xml /opt/tomcat/conf/
 
 ENV CATALINA_HOME /opt/tomcat
 ENV PATH $PATH:$CATALINA_HOME/bin
@@ -64,15 +64,14 @@ EXPOSE 8009
 VOLUME "/opt/tomcat/webapps"
 WORKDIR /opt/tomcat
 
-# Launch Tomcat
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-
-
 
 #copy build war file to tomcat webapps
 
-#RUN cp -r /root/target/hello-java-1.0.war /var/lib/tomcat8/webapps/
-#RUN rm -r /var/lib/tomcat8/webapps/ROOT
+RUN cp -r /root/target/hello-java-1.0.war /var/lib/tomcat8/webapps/
+RUN rm -r /var/lib/tomcat8/webapps/ROOT
+
+# Launch Tomcat
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
 
 # Expose the default tomcat port
 #EXPOSE 8080
