@@ -36,8 +36,7 @@ WORKDIR /root
 
 # Prepare by downloading dependencies
 ADD pom.xml /root/pom.xml  
-#RUN mvn dependency:resolve  
-#RUN mvn verify
+
 
 # Adding source, compile and package into a fat jar
 ADD src /root/src  
@@ -51,7 +50,7 @@ RUN rm -rf /var/lib/tomcat8/webapps/ROOT
 
 
 # Launch Tomcat
-CMD ["/var/lib/tomcat8/bin/catalina.sh", "run"]
+#CMD ["/var/lib/tomcat8/bin/catalina.sh", "run"]
 
 # Expose the default tomcat port
 EXPOSE 8080
@@ -60,7 +59,7 @@ EXPOSE 8080
 #RUN service tomcat8 start 
 
 # Define default command.
-#CMD ["bash"]
+CMD ["bash"]
 
 
 
