@@ -22,7 +22,7 @@ RUN \
   apt-get update && \
   apt-get install -y maven && \
   apt-get install -y vim && \
-  apt-get install -y tomcat8 && \
+  #apt-get install -y tomcat8 && \
   apt-get install -y net-tools && \
   echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/default/tomcat8 
   
@@ -43,13 +43,38 @@ ADD pom.xml /root/pom.xml
 ADD src /root/src  
 RUN mvn package
 
+# Get Tomcat
+RUN wget --quiet --no-cookies http://apache.rediris.es/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+tar xzvf /tmp/tomcat.tgz -C /opt && \
+mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+rm /tmp/tomcat.tgz && \
+rm -rf /opt/tomcat/webapps/examples && \
+rm -rf /opt/tomcat/webapps/docs && \
+rm -rf /opt/tomcat/webapps/ROOT
+
+# Add admin/admin user
+ADD tomcat-users.xml /opt/tomcat/conf/
+
+ENV CATALINA_HOME /opt/tomcat
+ENV PATH $PATH:$CATALINA_HOME/bin
+
+EXPOSE 8080
+EXPOSE 8009
+VOLUME "/opt/tomcat/webapps"
+WORKDIR /opt/tomcat
+
+# Launch Tomcat
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+
+
+
 #copy build war file to tomcat webapps
 
-RUN cp -r /root/target/hello-java-1.0.war /var/lib/tomcat8/webapps/
-RUN rm -r /var/lib/tomcat8/webapps/ROOT
+#RUN cp -r /root/target/hello-java-1.0.war /var/lib/tomcat8/webapps/
+#RUN rm -r /var/lib/tomcat8/webapps/ROOT
 
 # Expose the default tomcat port
-EXPOSE 8080
+#EXPOSE 8080
 
 # Start the tomcat (and leave it hanging)
 #RUN service tomcat8 start 
